@@ -5,103 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>R3GENCY Store</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css"> <!-- เชื่อมโยงไฟล์ CSS -->
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <div class="logo">
-      <h1>R3GENCY Store</h1>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="#">หน้าแรก</a></li>
-        <li><a href="#">บริการ</a></li>
-        <li><a href="#">รายละเอียดการสั่งซื้อ</a></li>
-        <li><a href="#">ติดต่อ</a></li>
-      </ul>
-    </nav>
-    <div class="auth-buttons">
-      <button>เข้าสู่ระบบ</button>
-      <button>ลงทะเบียน</button>
-    </div>
-  </header>
-
-<!-- Banner -->
-<section class="banner">
+  <!-- Banner -->
+  <section class="banner">
     <img src="banner.jpg" alt="โปรโมชั่น">
     <div class="banner-text">
       <h2>รับบริการ Roblox ID และ Blox Fruits ที่ดีที่สุดวันนี้!</h2>
-    </div>
-  </section>
-  
-
-  <!-- Product Categories -->
-  <section class="categories">
-    <h2>หมวดหมู่สินค้า</h2>
-    <div class="grid-container">
-      <div class="category">
-        <h3>Roblox IDs</h3>
-        <p>ซื้อ Roblox IDs คุณภาพสูงได้ที่นี่</p>
-      </div>
-      <div class="category">
-        <h3>ฟาร์มไอเท็ม</h3>
-        <p>บริการฟาร์มไอเท็มสำหรับ Blox Fruits</p>
-      </div>
-      <div class="category">
-        <h3>บริการ Race V4</h3>
-        <p>ปลดล็อค Race V4 สำหรับคุณ</p>
-      </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer>
     <p>ข้อมูลติดต่อ | นโยบายการคืนเงิน | ข้อมูลบัญชีผู้ใช้</p>
-    <p>โซเชียลมีเดีย: <a href="https://www.facebook.com/phuri.tabla">Facebook</a> | <a href="https://www.instagram.com/r3gencyzz/">Instagram</a></p>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js"></script> <!-- เชื่อมโยงไฟล์ JavaScript -->
 </body>
-</html>
-<!DOCTYPE html>
-<html lang="th">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>เข้าสู่ระบบ/ลงทะเบียน - R3GENCY Store</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="auth-form">
-    <!-- Login Form -->
-    <div class="form-container">
-      <h2>เข้าสู่ระบบ</h2>
-      <form id="loginForm" onsubmit="return validateLoginForm()">
-        <input type="email" id="email" placeholder="อีเมล" required>
-        <input type="password" id="password" placeholder="รหัสผ่าน" required>
-        <button type="submit">เข้าสู่ระบบ</button>
-        <a href="#">ลืมรหัสผ่าน?</a>
-        <a href="register.html">ลงทะเบียน</a>
-      </form>
-    </div>
-
-    <!-- Register Form -->
-    <div class="form-container">
-      <h2>ลงทะเบียน</h2>
-      <form id="registerForm" onsubmit="return validateRegisterForm()">
-        <input type="email" id="reg_email" placeholder="อีเมล" required>
-        <input type="password" id="reg_password" placeholder="รหัสผ่าน" required>
-        <input type="password" id="confirm_password" placeholder="ยืนยันรหัสผ่าน" required>
-        <button type="submit">ลงทะเบียน</button>
-      </form>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
-</body>
-</html>
 <style class="css">/* General styles */
     body {
       font-family: 'Roboto', sans-serif;
@@ -110,95 +31,40 @@
       background-color: #f4f4f4;
     }
     
-    /* Header */
-    header {
-      background-color: #222;
+    /* Banner */
+    .banner {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      overflow: hidden;
+    }
+    
+    .banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(50%);
+    }
+    
+    .banner-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       color: white;
-      display: flex;
-      justify-content: space-between;
-      padding: 20px;
-      align-items: center;
-    }
-    
-    header .logo h1 {
-      margin: 0;
-    }
-    
-    header nav ul {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-    }
-    
-    header nav a {
-      color: white;
-      text-decoration: none;
-    }
-    
-    header .auth-buttons button {
-      background-color: #e50914;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      margin-left: 20px;
-    }
-    
-/* Banner */
-.banner {
-  position: relative;
-  width: 100%;
-  height: 400px; /* ปรับความสูงของแบนเนอร์ */
-  overflow: hidden;
-}
-
-.banner img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(50%); /* ลดความสว่างของรูปภาพให้ดูนุ่มนวล */
-}
-
-.banner-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  text-align: center;
-  font-size: 2.5em; /* ขยายขนาดตัวอักษร */
-  font-weight: bold;
-  padding: 20px;
-  background-color: rgba(0, 0, 0, 0.5); /* เพิ่มพื้นหลังโปร่งแสง */
-  border-radius: 10px; /* เพิ่มมุมโค้ง */
-  width: 80%; /* จำกัดความกว้าง */
-  max-width: 600px; /* กำหนดความกว้างสูงสุด */
-}
-
-.banner-text h2 {
-  margin: 0;
-  line-height: 1.4;
-}
-
-    
-    /* Categories */
-    .categories {
-      padding: 20px;
       text-align: center;
-    }
-    
-    .grid-container {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-top: 20px;
-    }
-    
-    .category {
-      background-color: #fff;
+      font-size: 2.5em;
+      font-weight: bold;
       padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      width: 80%;
+      max-width: 600px;
+    }
+    
+    .banner-text h2 {
+      margin: 0;
+      line-height: 1.4;
     }
     
     /* Footer */
@@ -211,71 +77,8 @@
       width: 100%;
       bottom: 0;
     }
-    
-    /* Auth form */
-    .auth-form {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 50px;
-    }
-    
-    .form-container {
-      background-color: #fff;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-    }
-    
-    input {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    
-    button {
-      width: 100%;
-      padding: 10px;
-      background-color: #e50914;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    
-    a {
-      display: block;
-      text-align: center;
-      margin-top: 10px;
-    }
     </style>
-    <script>function validateLoginForm() {
-        var email = document.getElementById("email").value;
-        var password = document.getElementById("password").value;
-      
-        if (email == "" || password == "") {
-          alert("กรุณากรอกอีเมลและรหัสผ่าน.");
-          return false;
-        }
-        return true;
-      }
-      
-      function validateRegisterForm() {
-        var email = document.getElementById("reg_email").value;
-        var password = document.getElementById("reg_password").value;
-        var confirmPassword = document.getElementById("confirm_password").value;
-      
-        if (email == "" || password == "" || confirmPassword == "") {
-          alert("กรุณากรอกข้อมูลให้ครบ.");
-          return false;
-        }
-      
-        if (password !== confirmPassword) {
-          alert("รหัสผ่านไม่ตรงกัน.");
-          return false;
-        }
-      
-        return true;
-      }
-      </script>
+    <script>// ตัวอย่างการเพิ่มฟังก์ชัน JavaScript (ในกรณีที่คุณต้องการใช้งาน JavaScript)
+        console.log('เว็บไซต์ R3GENCY Store เริ่มทำงาน!');
+        </script>
+</html>
