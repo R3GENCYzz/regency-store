@@ -3,296 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>R3GENCY Store</title>
+    <title>เข้าสู่ระบบ / สมัครสมาชิก - R3GENCY Store</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <div class="navbar">
-            <div class="logo">R3GENCY Store</div>
-            <nav>
-                <ul>
-                    <li><a href="#home">หน้าแรก</a></li>
-                    <li><a href="#services">บริการ</a></li>
-                    <li><a href="#shop">ร้านค้า</a></li>
-                    <li><a href="#login" onclick="showLoginForm()">เข้าสู่ระบบ</a></li>
-                    <li><a href="#register" onclick="showRegisterForm()">สมัครสมาชิก</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <div class="container">
+        <h1 class="store-name">R3GENCY Store</h1>
 
-    <section id="home" class="hero-section">
-        <h1>ยินดีต้อนรับสู่ R3GENCY Store!</h1>
-        <p>บริการเกม Roblox และ Blox Fruits ที่ดีที่สุด.</p>
-        <button onclick="window.location.href='#login'">เข้าสู่ระบบเพื่อเริ่มต้น</button>
-    </section>
-
-    <!-- Registration Form -->
-    <section id="register" class="modal" style="display:none;">
-        <div class="modal-content">
-            <h2>สมัครสมาชิก</h2>
-            <form id="registerForm">
-                <label for="username">ชื่อผู้ใช้:</label>
-                <input type="text" id="registerUsername" placeholder="กรอกชื่อผู้ใช้" required>
-                <label for="email">อีเมล:</label>
-                <input type="email" id="registerEmail" placeholder="กรอกอีเมล" required>
-                <label for="password">รหัสผ่าน:</label>
-                <input type="password" id="registerPassword" placeholder="กรอกรหัสผ่าน" required>
-                <button type="submit">สมัครสมาชิก</button>
-                <button type="button" onclick="closeModal('register')">ปิด</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Login Form -->
-    <section id="login" class="modal" style="display:none;">
-        <div class="modal-content">
+        <!-- ฟอร์มเข้าสู่ระบบ -->
+        <form id="loginForm" class="form" style="display: block;">
             <h2>เข้าสู่ระบบ</h2>
-            <form id="loginForm">
+            <div>
                 <label for="loginUsername">ชื่อผู้ใช้:</label>
-                <input type="text" id="loginUsername" placeholder="กรอกชื่อผู้ใช้" required>
+                <input type="text" id="loginUsername" required>
+            </div>
+            <div>
                 <label for="loginPassword">รหัสผ่าน:</label>
-                <input type="password" id="loginPassword" placeholder="กรอกรหัสผ่าน" required>
-                <button type="submit">เข้าสู่ระบบ</button>
-                <button type="button" onclick="closeModal('login')">ปิด</button>
-            </form>
-        </div>
-    </section>
+                <input type="password" id="loginPassword" required>
+            </div>
+            <button type="submit">เข้าสู่ระบบ</button>
+            <div id="loginErrorMessage"></div>
+            <p>ยังไม่มีบัญชี? <a href="javascript:void(0)" id="showSignupForm">สมัครสมาชิก</a></p>
+        </form>
 
-    <footer>
-        <p>&copy; 2025 R3GENCY Store | FB:R3GENCY Store</p>
-    </footer>
+        <!-- ฟอร์มสมัครสมาชิก -->
+        <form id="signupForm" class="form" style="display: none;">
+            <h2>สมัครสมาชิก</h2>
+            <div>
+                <label for="signupUsername">ชื่อผู้ใช้:</label>
+                <input type="text" id="signupUsername" required>
+            </div>
+            <div>
+                <label for="signupEmail">อีเมล:</label>
+                <input type="email" id="signupEmail" required>
+            </div>
+            <div>
+                <label for="signupPassword">รหัสผ่าน:</label>
+                <input type="password" id="signupPassword" required>
+            </div>
+            <div>
+                <label for="signupConfirmPassword">ยืนยันรหัสผ่าน:</label>
+                <input type="password" id="signupConfirmPassword" required>
+            </div>
+            <button type="submit">สมัครสมาชิก</button>
+            <div id="signupErrorMessage"></div>
+            <p>มีบัญชีแล้ว? <a href="javascript:void(0)" id="showLoginForm">เข้าสู่ระบบ</a></p>
+        </form>
+    </div>
 
     <script src="script.js"></script>
 </body>
 </html>
-<style class="css">/* Global Styles */
+<style class="css">/* สไตล์พื้นฐาน */
     body {
-        font-family: 'Arial', sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #121212; /* ปรับสีพื้นหลังให้เข้ากับธีมเกม */
-        color: #fff;
-    }
-    
-    a {
-        text-decoration: none;
-        color: #f57c00;
-    }
-    
-    a:hover {
-        color: #ff8c00;
-    }
-    
-    /* Header */
-    header {
-        background-color: #1e1e1e;
-        padding: 10px 0;
-    }
-    
-    .navbar {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
-        padding: 0 20px;
+        height: 100vh;
+        margin: 0;
     }
     
-    .navbar ul {
-        list-style: none;
-        display: flex;
-        gap: 20px;
-    }
-    
-    .navbar ul li {
-        font-size: 16px;
-    }
-    
-    .navbar ul li a {
-        color: #f57c00;
-        font-weight: 500;
-    }
-    
-    /* Hero Section */
-    .hero-section {
-        background: linear-gradient(45deg, #0066cc, #ff8c00);
-        color: white;
-        padding: 80px 20px;
-        text-align: center;
-        font-size: 2em;
-        border-bottom: 4px solid #f57c00;
-    }
-    
-    .hero-section button {
-        background-color: #f57c00;
-        padding: 15px 30px;
-        border: none;
-        color: white;
-        font-size: 18px;
-        cursor: pointer;
-        border-radius: 8px;
-        margin-top: 20px;
-        transition: background-color 0.3s ease;
-    }
-    
-    .hero-section button:hover {
-        background-color: #ff8c00;
-    }
-    
-    /* Modal Styles (for login and registration) */
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
+    /* สไตล์ของฟอร์ม */
+    .container {
         width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.6);
-        padding-top: 60px;
+        max-width: 500px;
+        padding: 20px;
+        background: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        text-align: center;
     }
     
-    .modal-content {
-        background-color: #fff;
-        margin: 5% auto;
-        padding: 30px;
-        border-radius: 15px;
-        width: 80%;
-        max-width: 400px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        transform: translateY(-50px);
+    /* การค่อยๆ ปรากฏขึ้นของฟอร์ม (Fade-in effect) */
+    .form {
         opacity: 0;
-        animation: modalAnimation 0.4s forwards;
+        transform: translateY(30px);  /* เริ่มต้นที่ด้านล่าง */
+        animation: fadeInUp 0.8s forwards; /* ใช้แอนิเมชัน fade-in */
     }
     
-    @keyframes modalAnimation {
+    /* การกำหนดแอนิเมชันให้ฟอร์มค่อยๆ ขึ้นมา */
+    @keyframes fadeInUp {
         to {
-            transform: translateY(0);
             opacity: 1;
+            transform: translateY(0);
         }
     }
     
-    input[type="text"], input[type="email"], input[type="password"] {
-        width: 100%;
-        padding: 12px;
-        margin: 12px 0;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        background-color: #f1f1f1;
-        font-size: 16px;
-        transition: all 0.3s ease;
+    .store-name {
+        font-size: 2em;
+        margin-bottom: 20px;
     }
     
-    input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
-        border-color: #ff8c00;
-        background-color: #fff;
-        box-shadow: 0 0 8px rgba(255, 140, 0, 0.7);
+    input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
     }
     
     button {
-        background-color: #f57c00;
+        background-color: #4CAF50;
         color: white;
-        padding: 15px;
         border: none;
-        border-radius: 8px;
+        padding: 10px 20px;
+        margin: 10px 0;
         cursor: pointer;
-        width: 100%;
-        margin: 12px 0;
-        font-size: 16px;
-        transition: all 0.3s ease;
+        border-radius: 5px;
     }
     
     button:hover {
-        background-color: #ff8c00;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        background-color: #45a049;
     }
     
-    button[type="button"] {
-        background-color: #888;
+    p {
+        margin-top: 10px;
     }
     
-    button[type="button"]:hover {
-        background-color: #777;
+    a {
+        color: #007bff;
+        text-decoration: none;
     }
     
-    /* Footer */
-    footer {
-        background-color: #1e1e1e;
-        padding: 20px;
-        text-align: center;
-        color: #f57c00;
-        margin-top: 40px;
+    a:hover {
+        text-decoration: underline;
     }
-    
-    /* Hero Section Animation */
-    @keyframes heroAnimation {
-        0% {
-            opacity: 0;
-            transform: translateY(-50px);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    .hero-section {
-        animation: heroAnimation 0.8s ease-out;
-    }
-    
     </style>
-    <script>// ฟังก์ชันแสดง/ปิด Modal
-        function showRegisterForm() {
-            document.getElementById('register').style.display = 'block';
-        }
+    <script>// ฟังก์ชันการสลับระหว่างฟอร์มเข้าสู่ระบบและสมัครสมาชิก
+        document.getElementById('showSignupForm').addEventListener('click', function() {
+            document.getElementById('loginForm').style.display = 'none';  // ซ่อนฟอร์มเข้าสู่ระบบ
+            document.getElementById('signupForm').style.display = 'block';  // แสดงฟอร์มสมัครสมาชิก
+        });
         
-        function showLoginForm() {
-            document.getElementById('login').style.display = 'block';
-        }
+        document.getElementById('showLoginForm').addEventListener('click', function() {
+            document.getElementById('signupForm').style.display = 'none';  // ซ่อนฟอร์มสมัครสมาชิก
+            document.getElementById('loginForm').style.display = 'block';  // แสดงฟอร์มเข้าสู่ระบบ
+        });
         
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
+        // ฟังก์ชันการเข้าสู่ระบบ
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // ป้องกันการรีเฟรชหน้าเว็บ
         
-        // ฟังก์ชันสมัครสมาชิก
-        document.getElementById('registerForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
         
-            const username = document.getElementById('registerUsername').value;
-            const email = document.getElementById('registerEmail').value;
-            const password = document.getElementById('registerPassword').value;
-        
-            if (username && email && password) {
-                // บันทึกข้อมูลใน localStorage
+            if (username !== '' && password !== '') {
+                // เก็บข้อมูลชื่อผู้ใช้ใน LocalStorage
                 localStorage.setItem('username', username);
-                localStorage.setItem('email', email);
-                localStorage.setItem('password', password);
         
-                alert("สมัครสมาชิกสำเร็จ!");
-                closeModal('register');
+                // เปลี่ยนไปยังหน้า Dashboard หรือหน้าถัดไป
+                window.location.href = 'dashboard.html';  // เปลี่ยนไปยังหน้า Dashboard หรือหน้าอื่นที่ต้องการ
             } else {
-                alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+                const errorMessage = document.getElementById('loginErrorMessage');
+                errorMessage.textContent = 'กรุณากรอกชื่อผู้ใช้และรหัสผ่านให้ครบ';
+                errorMessage.style.color = 'red';
             }
         });
         
-        // ฟังก์ชันเข้าสู่ระบบ
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+        // ฟังก์ชันการสมัครสมาชิก
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // ป้องกันการรีเฟรชหน้าเว็บ
         
-            const loginUsername = document.getElementById('loginUsername').value;
-            const loginPassword = document.getElementById('loginPassword').value;
+            const username = document.getElementById('signupUsername').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
         
-            const storedUsername = localStorage.getItem('username');
-            const storedPassword = localStorage.getItem('password');
+            if (username !== '' && email !== '' && password !== '' && confirmPassword !== '') {
+                if (password === confirmPassword) {
+                    // เก็บข้อมูลชื่อผู้ใช้และอีเมลใน LocalStorage
+                    localStorage.setItem('username', username);
+                    localStorage.setItem('email', email);
         
-            if (loginUsername === storedUsername && loginPassword === storedPassword) {
-                alert("เข้าสู่ระบบสำเร็จ!");
-                closeModal('login');
-                // ทำการเปลี่ยนหน้า หรือแสดงข้อมูลของผู้ใช้
+                    // เปลี่ยนไปยังหน้า Dashboard หรือหน้าถัดไป
+                    window.location.href = 'dashboard.html';  // เปลี่ยนไปยังหน้า Dashboard หรือหน้าอื่นที่ต้องการ
+                } else {
+                    const errorMessage = document.getElementById('signupErrorMessage');
+                    errorMessage.textContent = 'รหัสผ่านไม่ตรงกัน';
+                    errorMessage.style.color = 'red';
+                }
             } else {
-                alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง!");
+                const errorMessage = document.getElementById('signupErrorMessage');
+                errorMessage.textContent = 'กรุณากรอกข้อมูลให้ครบทุกช่อง';
+                errorMessage.style.color = 'red';
             }
         });
         </script>
+

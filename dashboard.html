@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - R3GENCY Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- ส่วนหัวของ Dashboard -->
+        <div class="header">
+            <h1>ยินดีต้อนรับสู่ R3GENCY Store!</h1>
+            <p>สวัสดี, <span id="username"></span></p>
+        </div>
+
+        <!-- ส่วนเนื้อหาของ Dashboard -->
+        <div class="dashboard-content">
+            <h2>ฟังก์ชันที่มีให้เลือก:</h2>
+            <ul>
+                <li><a href="#" class="menu-link">ดูสินค้าทั้งหมด</a></li>
+                <li><a href="#" class="menu-link">ทำรายการซื้อสินค้า</a></li>
+                <li><a href="#" class="menu-link">ตรวจสอบประวัติการสั่งซื้อ</a></li>
+                <li><a href="#" class="menu-link">ตั้งค่าบัญชีผู้ใช้</a></li>
+                <li><a href="#" id="logoutBtn">ออกจากระบบ</a></li>
+            </ul>
+        </div>
+
+        <!-- ช่องแสดงประวัติการสั่งซื้อ (จะเติมข้อมูลจาก JS) -->
+        <div id="orderHistory" class="order-history">
+            <h3>ประวัติการสั่งซื้อ</h3>
+            <!-- ข้อมูลจะถูกโหลดที่นี่โดย JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        // ตรวจสอบการเข้าสู่ระบบ
+        const username = localStorage.getItem('username');
+        if (username) {
+            document.getElementById('username').textContent = username; // แสดงชื่อผู้ใช้ที่เข้าสู่ระบบ
+        } else {
+            window.location.href = 'index.html'; // ถ้าไม่มีการเข้าสู่ระบบให้กลับไปที่หน้าหลัก
+        }
+
+        // ฟังก์ชันสำหรับออกจากระบบ
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            localStorage.removeItem('username'); // ลบข้อมูลชื่อผู้ใช้จาก LocalStorage
+            window.location.href = 'index.html'; // เปลี่ยนไปยังหน้าเข้าสู่ระบบ
+        });
+
+        // ฟังก์ชันการคลิกที่เมนู
+        const menuLinks = document.querySelectorAll('.menu-link');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const page = this.textContent; // ดึงข้อความของเมนู
+                showAlert(page); // แสดงข้อความเพื่อทดสอบการคลิกเมนู
+            });
+        });
+
+        // ฟังก์ชันแสดงข้อความเมื่อคลิกเมนู
+        function showAlert(page) {
+            alert(`คุณคลิกเมนู: ${page}`);
+        }
+
+        // ฟังก์ชันการโหลดประวัติการสั่งซื้อ
+        function loadOrderHistory() {
+            const orderHistoryContainer = document.getElementById('orderHistory');
+
+            // ตัวอย่างข้อมูลประวัติการสั่งซื้อ
+            const orders = [
+                { id: 1, date: '2025-02-01', items: 'ID เกมส์ Roblox, Yoru' },
+                { id: 2, date: '2025-02-03', items: 'Race V4 (Skypiean)' },
+                { id: 3, date: '2025-02-05', items: 'ฟาร์ม Dragon Scales' }
+            ];
+
+            let orderHistoryHTML = '<ul>';
+            orders.forEach(order => {
+                orderHistoryHTML += `
+                    <li>
+                        <strong>Order #${order.id}</strong><br>
+                        วันที่สั่งซื้อ: ${order.date}<br>
+                        รายการสินค้า: ${order.items}
+                    </li>
+                `;
+            });
+            orderHistoryHTML += '</ul>';
+            orderHistoryContainer.innerHTML = orderHistoryHTML;
+        }
+
+        // เรียกใช้ฟังก์ชันโหลดประวัติการสั่งซื้อเมื่อหน้า Dashboard โหลด
+        document.addEventListener('DOMContentLoaded', loadOrderHistory);
+    </script>
+</body>
+</html>
+<style class="css">/* สไตล์พื้นฐาน */
+    body {
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(135deg, #6e7f55, #d4e2a7);
+        color: #333;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    
+    /* Container สำหรับหน้า Dashboard */
+    .container {
+        width: 100%;
+        max-width: 800px;
+        padding: 30px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        animation: fadeInUp 1s forwards;
+    }
+    
+    /* แอนิเมชันการค่อยๆ ขึ้นมาของฟอร์ม */
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* หัวข้อ Dashboard */
+    .header {
+        margin-bottom: 30px;
+        color: #4CAF50;
+    }
+    
+    /* ชื่อร้าน */
+    h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+    }
+    
+    /* ข้อความต้อนรับ */
+    #welcomeMessage {
+        font-size: 1.3em;
+    }
+    
+    /* ข้อความชื่อผู้ใช้ */
+    #username {
+        font-weight: bold;
+        color: #4CAF50;
+    }
+    
+    /* ฟังก์ชันใน Dashboard */
+    .dashboard-content {
+        margin-top: 20px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .dashboard-content h2 {
+        font-size: 1.7em;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    
+    /* สไตล์รายการใน Dashboard */
+    .dashboard-content ul {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .dashboard-content ul li {
+        margin: 15px 0;
+    }
+    
+    .dashboard-content ul li a {
+        display: block;
+        padding: 15px;
+        font-size: 1.1em;
+        color: #333;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+    
+    .dashboard-content ul li a:hover {
+        background-color: #f1f1f1;
+        transform: translateY(-5px);
+    }
+    
+    .dashboard-content ul li a:active {
+        background-color: #e1e1e1;
+        transform: translateY(2px);
+    }
+    
+    /* ช่องแสดงประวัติการสั่งซื้อ */
+    .order-history {
+        margin-top: 30px;
+        padding: 20px;
+        background-color: #f1f1f1;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .order-history ul {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .order-history ul li {
+        margin: 10px 0;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* ปุ่มออกจากระบบ */
+    #logoutBtn {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 1.1em;
+        color: #fff;
+        background-color: #f44336;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        margin-top: 20px;
+    }
+    
+    #logoutBtn:hover {
+        background-color: #e53935;
+    }
+    
+    #logoutBtn:active {
+        background-color: #d32f2f;
+    }
+    </style>
+    <!DOCTYPE html>
+    <html lang="th">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dashboard - R3GENCY Store</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>ยินดีต้อนรับสู่หน้า Dashboard</h1>
+            <p>คุณสามารถจัดการข้อมูลต่างๆ ที่นี่</p>
+    
+            <!-- ลิงก์ไปยังหน้า ดูสินค้าทั้งหมด -->
+            <a href="products.html" class="btn">ดูสินค้าทั้งหมด</a>
+            
+            <!-- ลิงก์กลับไปยังหน้า Dashboard -->
+            <a href="products.html" class="back-btn">กลับไปที่หน้า Dashboard</a>
+        </div>
+    
+        <script src="script.js"></script>
+    </body>
+    </html>
+    
