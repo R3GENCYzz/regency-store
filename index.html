@@ -3,82 +3,124 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>R3GENCY Store</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css"> <!-- เชื่อมโยงไฟล์ CSS -->
+  <title>R3GENCY Store - สมัครสมาชิก</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Banner -->
-  <section class="banner">
-    <img src="banner.jpg" alt="โปรโมชั่น">
-    <div class="banner-text">
-      <h2>รับบริการ Roblox ID และ Blox Fruits ที่ดีที่สุดวันนี้!</h2>
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="R3GENCY Store Logo">
+    </div>
+  </header>
+
+  <section class="auth-container">
+    <div class="auth-box">
+      <h2>สมัครสมาชิก</h2>
+      <form id="register-form">
+        <input type="text" id="username" placeholder="ชื่อผู้ใช้" required>
+        <input type="email" id="email" placeholder="อีเมล" required>
+        <input type="password" id="password" placeholder="รหัสผ่าน" required>
+        <input type="password" id="confirm-password" placeholder="ยืนยันรหัสผ่าน" required>
+        <button type="submit">สมัครสมาชิก</button>
+      </form>
+      <p>มีบัญชีอยู่แล้ว? <a href="login.html">เข้าสู่ระบบที่นี่</a></p>
+      <p id="message" style="color: green; display: none;"></p>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer>
-    <p>ข้อมูลติดต่อ | นโยบายการคืนเงิน | ข้อมูลบัญชีผู้ใช้</p>
-  </footer>
-
-  <script src="script.js"></script> <!-- เชื่อมโยงไฟล์ JavaScript -->
+  <script>document.getElementById("register-form").addEventListener("submit", function(event) {
+    event.preventDefault(); // ป้องกันไม่ให้ฟอร์มรีเฟรชหน้าทันที
+  
+    // รับข้อมูลจากฟอร์ม
+    const username = document.getElementById("username").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
+  
+    // ตรวจสอบข้อมูล
+    if (username === "" || email === "" || password === "" || confirmPassword === "") {
+      alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+      return;
+    }
+  
+    if (password !== confirmPassword) {
+      alert("รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน");
+      return;
+    }
+  
+    // แสดงข้อความยืนยัน
+    document.getElementById("message").style.display = "block";
+    document.getElementById("message").textContent = "สมัครสมาชิกสำเร็จ!";
+    
+    // สามารถส่งข้อมูลไปยังเซิร์ฟเวอร์หรือฐานข้อมูลได้ที่นี่
+  });
+  </script>
 </body>
-<style class="css">/* General styles */
-    body {
-      font-family: 'Roboto', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-    }
-    
-    /* Banner */
-    .banner {
-      position: relative;
-      width: 100%;
-      height: 400px;
-      overflow: hidden;
-    }
-    
-    .banner img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(50%);
-    }
-    
-    .banner-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: white;
-      text-align: center;
-      font-size: 2.5em;
-      font-weight: bold;
-      padding: 20px;
-      background-color: rgba(0, 0, 0, 0.5);
-      border-radius: 10px;
-      width: 80%;
-      max-width: 600px;
-    }
-    
-    .banner-text h2 {
-      margin: 0;
-      line-height: 1.4;
-    }
-    
-    /* Footer */
-    footer {
-      background-color: #222;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      position: fixed;
-      width: 100%;
-      bottom: 0;
-    }
-    </style>
-    <script>// ตัวอย่างการเพิ่มฟังก์ชัน JavaScript (ในกรณีที่คุณต้องการใช้งาน JavaScript)
-        console.log('เว็บไซต์ R3GENCY Store เริ่มทำงาน!');
-        </script>
+<style class="css">body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+    background-color: #000;
+    padding: 10px 0;
+    text-align: center;
+  }
+  
+  .logo img {
+    width: 150px;
+  }
+  
+  .auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+  }
+  
+  .auth-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+  }
+  
+  .auth-box h2 {
+    text-align: center;
+  }
+  
+  .auth-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .auth-box button {
+    width: 100%;
+    padding: 10px;
+    background-color: #2d87f0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .auth-box button:hover {
+    background-color: #1a6ad2;
+  }
+  
+  .auth-box p {
+    text-align: center;
+  }
+  
+  .auth-box a {
+    color: #2d87f0;
+    text-decoration: none;
+  }
+  </style>
 </html>
