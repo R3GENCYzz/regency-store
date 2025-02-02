@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R3GENCY Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">R3GENCY Store</div>
+            <nav>
+                <ul>
+                    <li><a href="#home">หน้าแรก</a></li>
+                    <li><a href="#services">บริการ</a></li>
+                    <li><a href="#shop">ร้านค้า</a></li>
+                    <li><a href="#login" onclick="showLoginForm()">เข้าสู่ระบบ</a></li>
+                    <li><a href="#register" onclick="showRegisterForm()">สมัครสมาชิก</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero-section">
+        <h1>ยินดีต้อนรับสู่ R3GENCY Store!</h1>
+        <p>บริการเกม Roblox และ Blox Fruits ที่ดีที่สุด.</p>
+        <button onclick="window.location.href='#login'">เข้าสู่ระบบเพื่อเริ่มต้น</button>
+    </section>
+
+    <!-- Registration Form -->
+    <section id="register" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h2>สมัครสมาชิก</h2>
+            <form id="registerForm">
+                <label for="username">ชื่อผู้ใช้:</label>
+                <input type="text" id="registerUsername" placeholder="กรอกชื่อผู้ใช้" required>
+                <label for="email">อีเมล:</label>
+                <input type="email" id="registerEmail" placeholder="กรอกอีเมล" required>
+                <label for="password">รหัสผ่าน:</label>
+                <input type="password" id="registerPassword" placeholder="กรอกรหัสผ่าน" required>
+                <button type="submit">สมัครสมาชิก</button>
+                <button type="button" onclick="closeModal('register')">ปิด</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Login Form -->
+    <section id="login" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h2>เข้าสู่ระบบ</h2>
+            <form id="loginForm">
+                <label for="loginUsername">ชื่อผู้ใช้:</label>
+                <input type="text" id="loginUsername" placeholder="กรอกชื่อผู้ใช้" required>
+                <label for="loginPassword">รหัสผ่าน:</label>
+                <input type="password" id="loginPassword" placeholder="กรอกรหัสผ่าน" required>
+                <button type="submit">เข้าสู่ระบบ</button>
+                <button type="button" onclick="closeModal('login')">ปิด</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 R3GENCY Store | FB:R3GENCY Store</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+<style class="css">/* Global Styles */
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #121212; /* ปรับสีพื้นหลังให้เข้ากับธีมเกม */
+        color: #fff;
+    }
+    
+    a {
+        text-decoration: none;
+        color: #f57c00;
+    }
+    
+    a:hover {
+        color: #ff8c00;
+    }
+    
+    /* Header */
+    header {
+        background-color: #1e1e1e;
+        padding: 10px 0;
+    }
+    
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+    }
+    
+    .navbar ul {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+    }
+    
+    .navbar ul li {
+        font-size: 16px;
+    }
+    
+    .navbar ul li a {
+        color: #f57c00;
+        font-weight: 500;
+    }
+    
+    /* Hero Section */
+    .hero-section {
+        background: linear-gradient(45deg, #0066cc, #ff8c00);
+        color: white;
+        padding: 80px 20px;
+        text-align: center;
+        font-size: 2em;
+        border-bottom: 4px solid #f57c00;
+    }
+    
+    .hero-section button {
+        background-color: #f57c00;
+        padding: 15px 30px;
+        border: none;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+        border-radius: 8px;
+        margin-top: 20px;
+        transition: background-color 0.3s ease;
+    }
+    
+    .hero-section button:hover {
+        background-color: #ff8c00;
+    }
+    
+    /* Modal Styles (for login and registration) */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.6);
+        padding-top: 60px;
+    }
+    
+    .modal-content {
+        background-color: #fff;
+        margin: 5% auto;
+        padding: 30px;
+        border-radius: 15px;
+        width: 80%;
+        max-width: 400px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transform: translateY(-50px);
+        opacity: 0;
+        animation: modalAnimation 0.4s forwards;
+    }
+    
+    @keyframes modalAnimation {
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    
+    input[type="text"], input[type="email"], input[type="password"] {
+        width: 100%;
+        padding: 12px;
+        margin: 12px 0;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: #f1f1f1;
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+    
+    input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+        border-color: #ff8c00;
+        background-color: #fff;
+        box-shadow: 0 0 8px rgba(255, 140, 0, 0.7);
+    }
+    
+    button {
+        background-color: #f57c00;
+        color: white;
+        padding: 15px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        width: 100%;
+        margin: 12px 0;
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+    
+    button:hover {
+        background-color: #ff8c00;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    button[type="button"] {
+        background-color: #888;
+    }
+    
+    button[type="button"]:hover {
+        background-color: #777;
+    }
+    
+    /* Footer */
+    footer {
+        background-color: #1e1e1e;
+        padding: 20px;
+        text-align: center;
+        color: #f57c00;
+        margin-top: 40px;
+    }
+    
+    /* Hero Section Animation */
+    @keyframes heroAnimation {
+        0% {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .hero-section {
+        animation: heroAnimation 0.8s ease-out;
+    }
+    
+    </style>
+    <script>// ฟังก์ชันแสดง/ปิด Modal
+        function showRegisterForm() {
+            document.getElementById('register').style.display = 'block';
+        }
+        
+        function showLoginForm() {
+            document.getElementById('login').style.display = 'block';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // ฟังก์ชันสมัครสมาชิก
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+        
+            const username = document.getElementById('registerUsername').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+        
+            if (username && email && password) {
+                // บันทึกข้อมูลใน localStorage
+                localStorage.setItem('username', username);
+                localStorage.setItem('email', email);
+                localStorage.setItem('password', password);
+        
+                alert("สมัครสมาชิกสำเร็จ!");
+                closeModal('register');
+            } else {
+                alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+            }
+        });
+        
+        // ฟังก์ชันเข้าสู่ระบบ
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+        
+            const loginUsername = document.getElementById('loginUsername').value;
+            const loginPassword = document.getElementById('loginPassword').value;
+        
+            const storedUsername = localStorage.getItem('username');
+            const storedPassword = localStorage.getItem('password');
+        
+            if (loginUsername === storedUsername && loginPassword === storedPassword) {
+                alert("เข้าสู่ระบบสำเร็จ!");
+                closeModal('login');
+                // ทำการเปลี่ยนหน้า หรือแสดงข้อมูลของผู้ใช้
+            } else {
+                alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง!");
+            }
+        });
+        </script>
