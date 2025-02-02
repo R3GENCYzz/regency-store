@@ -1,126 +1,295 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>R3GENCY Store - สมัครสมาชิก</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R3GENCY Store</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        h2, h3 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Auth Section */
+        #auth-section, #register-section {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 350px;
+            margin-top: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        #auth-section:hover, #register-section:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Input fields */
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #5b9bd5;
+            outline: none;
+        }
+
+        /* Button Styles */
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #5b9bd5;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4a8dc3;
+        }
+
+        a {
+            color: #5b9bd5;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Menu */
+        #main-menu {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            width: 350px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        #main-menu:hover {
+            transform: translateY(-5px);
+        }
+
+        #categories ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #categories li {
+            margin: 10px 0;
+        }
+
+        #categories a {
+            color: #f0f0f0;
+            font-size: 16px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        #categories a:hover {
+            color: #ffd700;
+        }
+
+        /* Username Display */
+        #username-display p {
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 20px;
+            color: white;
+        }
+
+        /* Payment Section */
+        #payment {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 350px;
+            margin-top: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        #payment:hover {
+            transform: translateY(-5px);
+        }
+
+        #payment-form input[type="radio"] {
+            margin-right: 8px;
+            accent-color: #5b9bd5;
+        }
+
+        /* Media Queries for responsiveness */
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+            }
+
+            #auth-section, #register-section, #main-menu, #payment {
+                width: 90%;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="logo">
-      <img src="logo.png" alt="R3GENCY Store Logo">
-    </div>
-  </header>
 
-  <section class="auth-container">
-    <div class="auth-box">
-      <h2>สมัครสมาชิก</h2>
-      <form id="register-form">
-        <input type="text" id="username" placeholder="ชื่อผู้ใช้" required>
-        <input type="email" id="email" placeholder="อีเมล" required>
-        <input type="password" id="password" placeholder="รหัสผ่าน" required>
-        <input type="password" id="confirm-password" placeholder="ยืนยันรหัสผ่าน" required>
-        <button type="submit">สมัครสมาชิก</button>
-      </form>
-      <p>มีบัญชีอยู่แล้ว? <a href="login.html">เข้าสู่ระบบที่นี่</a></p>
-      <p id="message" style="color: green; display: none;"></p>
+    <!-- Registration & Login -->
+    <div id="auth-section">
+        <h2>สมัครสมาชิก / เข้าสู่ระบบ</h2>
+        <form id="login-form">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">เข้าสู่ระบบ</button>
+        </form>
+        <p>ยังไม่มีบัญชี? <a href="#" id="register-link">สมัครสมาชิก</a></p>
     </div>
-  </section>
 
-  <script>document.getElementById("register-form").addEventListener("submit", function(event) {
-    event.preventDefault(); // ป้องกันไม่ให้ฟอร์มรีเฟรชหน้าทันที
-  
-    // รับข้อมูลจากฟอร์ม
-    const username = document.getElementById("username").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirm-password").value;
-  
-    // ตรวจสอบข้อมูล
-    if (username === "" || email === "" || password === "" || confirmPassword === "") {
-      alert("กรุณากรอกข้อมูลให้ครบถ้วน");
-      return;
-    }
-  
-    if (password !== confirmPassword) {
-      alert("รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน");
-      return;
-    }
-  
-    // แสดงข้อความยืนยัน
-    document.getElementById("message").style.display = "block";
-    document.getElementById("message").textContent = "สมัครสมาชิกสำเร็จ!";
-    
-    // สามารถส่งข้อมูลไปยังเซิร์ฟเวอร์หรือฐานข้อมูลได้ที่นี่
-  });
-  </script>
+    <!-- Register -->
+    <div id="register-section" style="display:none;">
+        <h2>สมัครสมาชิก</h2>
+        <form id="register-form">
+            <input type="text" id="register-username" placeholder="Username" required>
+            <input type="password" id="register-password" placeholder="Password" required>
+            <button type="submit">สมัครสมาชิก</button>
+        </form>
+        <p>มีบัญชีแล้ว? <a href="#" id="login-link">เข้าสู่ระบบ</a></p>
+    </div>
+
+    <!-- Main Menu -->
+    <div id="main-menu" style="display:none;">
+        <button id="menu-toggle">☰</button>
+        <div id="categories">
+            <ul>
+                <li><a href="#">ID Roblox</a></li>
+                <li><a href="#">บริการฟาร์มไอเทม</a></li>
+                <li><a href="#">รับทำเผ่า V4</a></li>
+            </ul>
+        </div>
+        <div id="username-display">
+            <p>ยินดีต้อนรับ, <span id="username-display"></span></p>
+        </div>
+    </div>
+
+    <!-- Payment System -->
+    <div id="payment" style="display:none;">
+        <h3>เลือกวิธีการชำระเงิน</h3>
+        <form id="payment-form">
+            <input type="radio" name="payment-method" value="giftcard" id="giftcard"> Gift Card
+            <input type="radio" name="payment-method" value="promptpay" id="promptpay"> PromptPay
+            <button type="submit">ชำระเงิน</button>
+        </form>
+    </div>
+
+    <script>
+        // Registration & Login
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const registerLink = document.getElementById('register-link');
+        const loginLink = document.getElementById('login-link');
+        const authSection = document.getElementById('auth-section');
+        const registerSection = document.getElementById('register-section');
+        const mainMenu = document.getElementById('main-menu');
+        const paymentSection = document.getElementById('payment');
+        const usernameDisplay = document.getElementById('username-display');
+
+        // Register form submission
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('register-username').value;
+            const password = document.getElementById('register-password').value;
+            
+            // Store user data in localStorage
+            localStorage.setItem(username, password);
+            alert('สมัครสมาชิกสำเร็จ!');
+            registerSection.style.display = 'none';
+            authSection.style.display = 'block';
+        });
+
+        // Login form submission
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Check login credentials
+            const storedPassword = localStorage.getItem(username);
+            
+            if (storedPassword && storedPassword === password) {
+                alert('เข้าสู่ระบบสำเร็จ!');
+                localStorage.setItem('loggedInUser', username);
+                showMainMenu(username);
+            } else {
+                alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
+            }
+        });
+
+        // Show main menu after login
+        function showMainMenu(username) {
+            authSection.style.display = 'none';
+            registerSection.style.display = 'none';
+            mainMenu.style.display = 'block';
+            usernameDisplay.textContent = username;
+        }
+
+        // Toggle between login and register forms
+        registerLink.addEventListener('click', () => {
+            authSection.style.display = 'none';
+            registerSection.style.display = 'block';
+        });
+
+        loginLink.addEventListener('click', () => {
+            registerSection.style.display = 'none';
+            authSection.style.display = 'block';
+        });
+
+        // Payment form submission
+        const paymentForm = document.getElementById('payment-form');
+        paymentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+            alert('ชำระเงินผ่าน ' + paymentMethod);
+            paymentSection.style.display = 'none';
+        });
+
+        // Show payment section
+        function showPayment() {
+            paymentSection.style.display = 'block';
+        }
+
+        // Check if user is already logged in
+        const loggedInUser = localStorage.getItem('loggedInUser');
+        if (loggedInUser) {
+            showMainMenu(loggedInUser);
+        }
+    </script>
 </body>
-<style class="css">body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-  }
-  
-  header {
-    background-color: #000;
-    padding: 10px 0;
-    text-align: center;
-  }
-  
-  .logo img {
-    width: 150px;
-  }
-  
-  .auth-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-  }
-  
-  .auth-box {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-  }
-  
-  .auth-box h2 {
-    text-align: center;
-  }
-  
-  .auth-box input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-  }
-  
-  .auth-box button {
-    width: 100%;
-    padding: 10px;
-    background-color: #2d87f0;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .auth-box button:hover {
-    background-color: #1a6ad2;
-  }
-  
-  .auth-box p {
-    text-align: center;
-  }
-  
-  .auth-box a {
-    color: #2d87f0;
-    text-decoration: none;
-  }
-  </style>
 </html>
