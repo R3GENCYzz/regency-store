@@ -3,62 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>R3GENCY Store</title>
+    <title>R3GENCY Store - Login & Register</title>
     <style>
-        /* General styles */
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f7fc;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
         }
 
-        h2, h3 {
-            color: #333;
+        h2 {
             text-align: center;
-            margin-bottom: 20px;
+            color: #333;
         }
 
-        /* Auth Section */
-        #auth-section, #register-section {
-            background-color: #ffffff;
+        #register-section, #login-section, #dashboard-section {
+            width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            width: 350px;
-            margin-top: 20px;
-            transition: transform 0.3s ease;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
         }
 
-        #auth-section:hover, #register-section:hover {
-            transform: translateY(-5px);
-        }
-
-        /* Input fields */
-        input {
+        input[type="text"], input[type="password"], input[type="email"], input[type="phone"] {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: border-color 0.3s ease;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
 
-        input:focus {
-            border-color: #5b9bd5;
-            outline: none;
-        }
-
-        /* Button Styles */
         button {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             background-color: #5b9bd5;
             color: white;
             border: none;
@@ -72,224 +50,162 @@
             background-color: #4a8dc3;
         }
 
-        a {
-            color: #5b9bd5;
-            text-decoration: none;
-            font-size: 14px;
+        .back-link {
+            text-align: center;
+            margin-top: 10px;
         }
 
-        a:hover {
+        .back-link a {
+            color: #5b9bd5;
+            text-decoration: none;
+        }
+
+        .back-link a:hover {
             text-decoration: underline;
         }
 
-        /* Main Menu */
-        #main-menu {
-            background-color: #333;
-            color: white;
-            padding: 20px;
-            width: 350px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-            transition: transform 0.3s ease;
+        .dashboard-content {
             text-align: center;
+            padding: 50px;
         }
 
-        #main-menu:hover {
-            transform: translateY(-5px);
+        .welcome-message {
+            font-size: 24px;
+            color: #5b9bd5;
         }
 
-        #categories ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        #categories li {
-            margin: 10px 0;
-        }
-
-        #categories a {
-            color: #f0f0f0;
-            font-size: 16px;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        #categories a:hover {
-            color: #ffd700;
-        }
-
-        /* Username Display */
-        #username-display p {
-            font-size: 16px;
-            font-weight: 600;
-            margin-top: 20px;
-            color: white;
-        }
-
-        /* Payment Section */
-        #payment {
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            width: 350px;
-            margin-top: 20px;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        #payment:hover {
-            transform: translateY(-5px);
-        }
-
-        #payment-form input[type="radio"] {
-            margin-right: 8px;
-            accent-color: #5b9bd5;
-        }
-
-        /* Media Queries for responsiveness */
-        @media (max-width: 768px) {
-            body {
-                font-size: 14px;
-            }
-
-            #auth-section, #register-section, #main-menu, #payment {
-                width: 90%;
-            }
+        #dashboard-section {
+            display: none;
         }
     </style>
 </head>
 <body>
 
-    <!-- Registration & Login -->
-    <div id="auth-section">
-        <h2>สมัครสมาชิก / เข้าสู่ระบบ</h2>
-        <form id="login-form">
-            <input type="text" id="username" placeholder="Username" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <button type="submit">เข้าสู่ระบบ</button>
-        </form>
-        <p>ยังไม่มีบัญชี? <a href="#" id="register-link">สมัครสมาชิก</a></p>
-    </div>
-
-    <!-- Register -->
-    <div id="register-section" style="display:none;">
+    <!-- Register Section -->
+    <div id="register-section">
         <h2>สมัครสมาชิก</h2>
         <form id="register-form">
-            <input type="text" id="register-username" placeholder="Username" required>
-            <input type="password" id="register-password" placeholder="Password" required>
+            <label for="register-username">ชื่อผู้ใช้:</label>
+            <input type="text" id="register-username" required>
+            <label for="register-password">รหัสผ่าน:</label>
+            <input type="password" id="register-password" required>
+            <label for="register-email">อีเมล:</label>
+            <input type="email" id="register-email" required>
+            <label for="register-phone">เบอร์โทรศัพท์:</label>
+            <input type="text" id="register-phone" required>
             <button type="submit">สมัครสมาชิก</button>
         </form>
-        <p>มีบัญชีแล้ว? <a href="#" id="login-link">เข้าสู่ระบบ</a></p>
-    </div>
-
-    <!-- Main Menu -->
-    <div id="main-menu" style="display:none;">
-        <button id="menu-toggle">☰</button>
-        <div id="categories">
-            <ul>
-                <li><a href="#">ID Roblox</a></li>
-                <li><a href="#">บริการฟาร์มไอเทม</a></li>
-                <li><a href="#">รับทำเผ่า V4</a></li>
-            </ul>
-        </div>
-        <div id="username-display">
-            <p>ยินดีต้อนรับ, <span id="username-display"></span></p>
+        <div class="back-link">
+            <a href="#" id="back-to-login">มีบัญชีอยู่แล้ว? เข้าสู่ระบบ</a>
         </div>
     </div>
 
-    <!-- Payment System -->
-    <div id="payment" style="display:none;">
-        <h3>เลือกวิธีการชำระเงิน</h3>
-        <form id="payment-form">
-            <input type="radio" name="payment-method" value="giftcard" id="giftcard"> Gift Card
-            <input type="radio" name="payment-method" value="promptpay" id="promptpay"> PromptPay
-            <button type="submit">ชำระเงิน</button>
+    <!-- Login Section -->
+    <div id="login-section" style="display: none;">
+        <h2>เข้าสู่ระบบ</h2>
+        <form id="login-form">
+            <label for="login-username">ชื่อผู้ใช้:</label>
+            <input type="text" id="login-username" required>
+            <label for="login-password">รหัสผ่าน:</label>
+            <input type="password" id="login-password" required>
+            <button type="submit">เข้าสู่ระบบ</button>
         </form>
+        <div class="back-link">
+            <a href="#" id="back-to-register">ยังไม่มีบัญชี? สมัครสมาชิก</a>
+        </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard-section">
+        <h1>ยินดีต้อนรับสู่ Dashboard</h1>
+        <p class="welcome-message" id="welcome-message"></p>
+        <button onclick="logout()">ออกจากระบบ</button>
     </div>
 
     <script>
-        // Registration & Login
-        const loginForm = document.getElementById('login-form');
+        // ฟังก์ชันการสมัครสมาชิก
         const registerForm = document.getElementById('register-form');
-        const registerLink = document.getElementById('register-link');
-        const loginLink = document.getElementById('login-link');
-        const authSection = document.getElementById('auth-section');
-        const registerSection = document.getElementById('register-section');
-        const mainMenu = document.getElementById('main-menu');
-        const paymentSection = document.getElementById('payment');
-        const usernameDisplay = document.getElementById('username-display');
-
-        // Register form submission
         registerForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const username = document.getElementById('register-username').value;
             const password = document.getElementById('register-password').value;
-            
-            // Store user data in localStorage
-            localStorage.setItem(username, password);
-            alert('สมัครสมาชิกสำเร็จ!');
-            registerSection.style.display = 'none';
-            authSection.style.display = 'block';
+            const email = document.getElementById('register-email').value;
+            const phone = document.getElementById('register-phone').value;
+
+            const userData = {
+                username,
+                password,
+                email,
+                phone
+            };
+
+            // เก็บข้อมูลผู้ใช้ใน localStorage
+            localStorage.setItem(username, JSON.stringify(userData));
+
+            alert('สมัครสมาชิกสำเร็จ! กรุณาเข้าสู่ระบบ');
+            document.getElementById('register-section').style.display = 'none';
+            document.getElementById('login-section').style.display = 'block';
         });
 
-        // Login form submission
+        // ฟังก์ชันการเข้าสู่ระบบ
+        const loginForm = document.getElementById('login-form');
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            // Check login credentials
-            const storedPassword = localStorage.getItem(username);
-            
-            if (storedPassword && storedPassword === password) {
-                alert('เข้าสู่ระบบสำเร็จ!');
-                localStorage.setItem('loggedInUser', username);
-                showMainMenu(username);
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+
+            const userData = JSON.parse(localStorage.getItem(username));
+
+            if (userData && userData.password === password) {
+                // บันทึกชื่อผู้ใช้ใน localStorage เพื่อใช้ใน Dashboard
+                localStorage.setItem('username', username);
+                alert('เข้าสู่ระบบสำเร็จ');
+                // เปลี่ยนไปหน้า Dashboard
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('register-section').style.display = 'none';
+                document.getElementById('dashboard-section').style.display = 'block';
+                document.getElementById('welcome-message').textContent = `ยินดีต้อนรับ, ${username}!`;
             } else {
                 alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
             }
         });
 
-        // Show main menu after login
-        function showMainMenu(username) {
-            authSection.style.display = 'none';
-            registerSection.style.display = 'none';
-            mainMenu.style.display = 'block';
-            usernameDisplay.textContent = username;
-        }
-
-        // Toggle between login and register forms
-        registerLink.addEventListener('click', () => {
-            authSection.style.display = 'none';
-            registerSection.style.display = 'block';
-        });
-
-        loginLink.addEventListener('click', () => {
-            registerSection.style.display = 'none';
-            authSection.style.display = 'block';
-        });
-
-        // Payment form submission
-        const paymentForm = document.getElementById('payment-form');
-        paymentForm.addEventListener('submit', (e) => {
+        // การกลับไปที่หน้าเข้าสู่ระบบจากหน้า สมัครสมาชิก
+        const backToLoginLink = document.getElementById('back-to-login');
+        backToLoginLink.addEventListener('click', (e) => {
             e.preventDefault();
-            const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
-            alert('ชำระเงินผ่าน ' + paymentMethod);
-            paymentSection.style.display = 'none';
+            document.getElementById('register-section').style.display = 'none';
+            document.getElementById('login-section').style.display = 'block';
         });
 
-        // Show payment section
-        function showPayment() {
-            paymentSection.style.display = 'block';
+        // การกลับไปที่หน้าสมัครสมาชิกจากหน้า เข้าสู่ระบบ
+        const backToRegisterLink = document.getElementById('back-to-register');
+        backToRegisterLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('register-section').style.display = 'block';
+        });
+
+        // ฟังก์ชันการออกจากระบบ
+        function logout() {
+            localStorage.removeItem('username');
+            alert('ออกจากระบบสำเร็จ');
+            document.getElementById('dashboard-section').style.display = 'none';
+            document.getElementById('login-section').style.display = 'block';
         }
 
-        // Check if user is already logged in
-        const loggedInUser = localStorage.getItem('loggedInUser');
-        if (loggedInUser) {
-            showMainMenu(loggedInUser);
+        // หากมีผู้ใช้ที่เข้าสู่ระบบแล้ว ให้ไปที่หน้า Dashboard โดยอัตโนมัติ
+        if (localStorage.getItem('username')) {
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('register-section').style.display = 'none';
+            document.getElementById('dashboard-section').style.display = 'block';
+            document.getElementById('welcome-message').textContent = `ยินดีต้อนรับ, ${localStorage.getItem('username')}!`;
+        } else {
+            document.getElementById('login-section').style.display = 'block';
+            document.getElementById('register-section').style.display = 'none';
+            document.getElementById('dashboard-section').style.display = 'none';
         }
     </script>
+
 </body>
 </html>
