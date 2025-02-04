@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายละเอียดสินค้า</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 15px 30px;
+            text-align: center;
+        }
+
+        #product-details {
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <span class="brand-name">R3GENCY Store</span>
+    </header>
+
+    <main>
+        <div id="product-details">
+            <!-- ข้อมูลจะโหลดตามพารามิเตอร์ใน URL -->
+        </div>
+    </main>
+
+    <script>
+        // ฟังก์ชันดึงข้อมูลจาก URL
+        function getProductDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const service = urlParams.get('service');
+
+            const productDetails = document.getElementById("product-details");
+            if (service === "roblox-id") {
+                productDetails.innerHTML = `
+                    <h2>บริการ: Roblox ID</h2>
+                    <p>รับ Roblox ID สำหรับเกมที่คุณชอบ! สร้างบรรยากาศสนุกๆ ด้วยเพลงที่เลือกได้เอง.</p>
+                    <p>ราคา: ฿30</p>
+                    <button onclick="addToCart('Roblox ID', 30)">สั่งซื้อ</button>
+                `;
+            } else if (service === "item-farming") {
+                productDetails.innerHTML = `
+                    <h2>บริการ: ฟาร์มไอเทม</h2>
+                    <p>เราจะช่วยคุณฟาร์มไอเทมต่างๆ ตามที่ต้องการ ไม่ว่าจะเป็นการฟาร์มดราก้อนสเกลหรือไอเทมอื่นๆ.</p>
+                    <p>ราคา: ฿20</p>
+                    <button onclick="addToCart('ฟาร์มไอเทม', 20)">สั่งซื้อ</button>
+                `;
+            } else if (service === "race-v4") {
+                productDetails.innerHTML = `
+                    <h2>บริการ: ปลดล็อค Race V4</h2>
+                    <p>ปลดล็อค Race V4 สำหรับทุกเผ่าในเกม พร้อมด้วยความสามารถพิเศษ!</p>
+                    <p>ราคา: ฿100</p>
+                    <button onclick="addToCart('Race V4', 100)">สั่งซื้อ</button>
+                `;
+            } else if (service === "new-service") {
+                productDetails.innerHTML = `
+                    <h2>บริการ: บริการใหม่</h2>
+                    <p>รายละเอียดบริการใหม่ที่จะช่วยให้คุณได้สิ่งที่ต้องการ! ตัวอย่างเช่นฟาร์มไอเทมพิเศษที่ไม่เหมือนใคร</p>
+                    <p>ราคา: ฿50</p>
+                    <button onclick="addToCart('บริการใหม่', 50)">สั่งซื้อ</button>
+                `;
+            } else {
+                productDetails.innerHTML = `<p>ไม่พบข้อมูลบริการนี้</p>`;
+            }
+        }
+
+        // ฟังก์ชันเพิ่มสินค้าไปยังตะกร้า (ใช้ LocalStorage เพื่อเก็บข้อมูล)
+        function addToCart(service, price) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push({ service, price });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${service} ถูกเพิ่มลงในตะกร้าแล้ว!`);
+        }
+
+        // เรียกใช้ฟังก์ชันเมื่อโหลดหน้า
+        window.onload = getProductDetails;
+    </script>
+</body>
+</html>

@@ -3,209 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>R3GENCY Store - Login & Register</title>
+    <title>R3GENCY Store - ล็อคอิน/สมัครสมาชิก</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f7fc;
+            background-color: #f0f2f5;
         }
 
-        h2 {
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f2f5;
+        }
+
+        .auth-box {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .auth-box h2 {
             text-align: center;
             color: #333;
+            margin-bottom: 20px;
         }
 
-        #register-section, #login-section, #dashboard-section {
-            width: 300px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        input[type="text"], input[type="password"], input[type="email"], input[type="phone"] {
+        .auth-box input {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
         }
 
-        button {
+        .auth-box button {
             width: 100%;
             padding: 10px;
-            background-color: #5b9bd5;
+            background-color: #4CAF50;
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s;
         }
 
-        button:hover {
-            background-color: #4a8dc3;
+        .auth-box button:hover {
+            background-color: #45a049;
         }
 
-        .back-link {
+        .auth-box .auth-link {
+            display: block;
             text-align: center;
             margin-top: 10px;
         }
 
-        .back-link a {
-            color: #5b9bd5;
+        .auth-box .auth-link a {
+            color: #4CAF50;
             text-decoration: none;
         }
 
-        .back-link a:hover {
+        .auth-box .auth-link a:hover {
             text-decoration: underline;
         }
 
-        .dashboard-content {
-            text-align: center;
-            padding: 50px;
-        }
-
-        .welcome-message {
-            font-size: 24px;
-            color: #5b9bd5;
-        }
-
-        #dashboard-section {
+        .success-message {
             display: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
         }
     </style>
 </head>
 <body>
+    <div class="auth-container">
+        <div class="auth-box" id="authBox">
+            <h2 id="authTitle">เข้าสู่ระบบ</h2>
 
-    <!-- Register Section -->
-    <div id="register-section">
-        <h2>สมัครสมาชิก</h2>
-        <form id="register-form">
-            <label for="register-username">ชื่อผู้ใช้:</label>
-            <input type="text" id="register-username" required>
-            <label for="register-password">รหัสผ่าน:</label>
-            <input type="password" id="register-password" required>
-            <label for="register-email">อีเมล:</label>
-            <input type="email" id="register-email" required>
-            <label for="register-phone">เบอร์โทรศัพท์:</label>
-            <input type="text" id="register-phone" required>
-            <button type="submit">สมัครสมาชิก</button>
-        </form>
-        <div class="back-link">
-            <a href="#" id="back-to-login">มีบัญชีอยู่แล้ว? เข้าสู่ระบบ</a>
+            <!-- ฟอร์ม Login -->
+            <form id="loginForm" onsubmit="return loginForm(event)">
+                <input type="text" id="username" name="username" placeholder="ชื่อผู้ใช้" required>
+                <input type="password" id="password" name="password" placeholder="รหัสผ่าน" required>
+                <button type="submit">เข้าสู่ระบบ</button>
+            </form>
+
+            <!-- ฟอร์ม Register -->
+            <form id="registerForm" onsubmit="return registerForm(event)" style="display: none;">
+                <input type="text" id="registerUsername" name="username" placeholder="ชื่อผู้ใช้" required>
+                <input type="password" id="registerPassword" name="password" placeholder="รหัสผ่าน" required>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="ยืนยันรหัสผ่าน" required>
+                <input type="email" id="registerEmail" name="email" placeholder="อีเมล (Gmail)" required>
+                <button type="submit">สมัครสมาชิก</button>
+            </form>
+
+            <div class="auth-link">
+                <span id="authToggle">
+                    ยังไม่มีบัญชี? <a href="javascript:void(0);" onclick="toggleAuth()">สมัครสมาชิก</a>
+                </span>
+            </div>
+
+            <!-- แสดงข้อความเมื่อสำเร็จ -->
+            <div class="success-message" id="successMessage">
+                สมัครสมาชิกหรือเข้าสู่ระบบสำเร็จ! กำลังพาคุณไปที่ R3GENCY Store...
+            </div>
+
+            <!-- แสดงข้อความขณะกำลังโหลด -->
+            <div class="loading" id="loadingMessage">
+                กำลังโหลด...
+            </div>
         </div>
-    </div>
-
-    <!-- Login Section -->
-    <div id="login-section" style="display: none;">
-        <h2>เข้าสู่ระบบ</h2>
-        <form id="login-form">
-            <label for="login-username">ชื่อผู้ใช้:</label>
-            <input type="text" id="login-username" required>
-            <label for="login-password">รหัสผ่าน:</label>
-            <input type="password" id="login-password" required>
-            <button type="submit">เข้าสู่ระบบ</button>
-        </form>
-        <div class="back-link">
-            <a href="#" id="back-to-register">ยังไม่มีบัญชี? สมัครสมาชิก</a>
-        </div>
-    </div>
-
-    <!-- Dashboard Section -->
-    <div id="dashboard-section">
-        <h1>ยินดีต้อนรับสู่ Dashboard</h1>
-        <p class="welcome-message" id="welcome-message"></p>
-        <button onclick="logout()">ออกจากระบบ</button>
     </div>
 
     <script>
-        // ฟังก์ชันการสมัครสมาชิก
-        const registerForm = document.getElementById('register-form');
-        registerForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const username = document.getElementById('register-username').value;
-            const password = document.getElementById('register-password').value;
-            const email = document.getElementById('register-email').value;
-            const phone = document.getElementById('register-phone').value;
-
-            const userData = {
-                username,
-                password,
-                email,
-                phone
-            };
-
-            // เก็บข้อมูลผู้ใช้ใน localStorage
-            localStorage.setItem(username, JSON.stringify(userData));
-
-            alert('สมัครสมาชิกสำเร็จ! กรุณาเข้าสู่ระบบ');
-            document.getElementById('register-section').style.display = 'none';
-            document.getElementById('login-section').style.display = 'block';
-        });
-
-        // ฟังก์ชันการเข้าสู่ระบบ
-        const loginForm = document.getElementById('login-form');
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const username = document.getElementById('login-username').value;
-            const password = document.getElementById('login-password').value;
-
-            const userData = JSON.parse(localStorage.getItem(username));
-
-            if (userData && userData.password === password) {
-                // บันทึกชื่อผู้ใช้ใน localStorage เพื่อใช้ใน Dashboard
-                localStorage.setItem('username', username);
-                alert('เข้าสู่ระบบสำเร็จ');
-                // เปลี่ยนไปหน้า Dashboard
-                document.getElementById('login-section').style.display = 'none';
-                document.getElementById('register-section').style.display = 'none';
-                document.getElementById('dashboard-section').style.display = 'block';
-                document.getElementById('welcome-message').textContent = `ยินดีต้อนรับ, ${username}!`;
-            } else {
-                alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
-            }
-        });
-
-        // การกลับไปที่หน้าเข้าสู่ระบบจากหน้า สมัครสมาชิก
-        const backToLoginLink = document.getElementById('back-to-login');
-        backToLoginLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            document.getElementById('register-section').style.display = 'none';
-            document.getElementById('login-section').style.display = 'block';
-        });
-
-        // การกลับไปที่หน้าสมัครสมาชิกจากหน้า เข้าสู่ระบบ
-        const backToRegisterLink = document.getElementById('back-to-register');
-        backToRegisterLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            document.getElementById('login-section').style.display = 'none';
-            document.getElementById('register-section').style.display = 'block';
-        });
-
-        // ฟังก์ชันการออกจากระบบ
-        function logout() {
-            localStorage.removeItem('username');
-            alert('ออกจากระบบสำเร็จ');
-            document.getElementById('dashboard-section').style.display = 'none';
-            document.getElementById('login-section').style.display = 'block';
+        // เก็บข้อมูลผู้ใช้ที่สมัครไว้ใน localStorage
+        function saveUserData(username, password, email) {
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+            users.push({ username, password, email });
+            localStorage.setItem("users", JSON.stringify(users));
         }
 
-        // หากมีผู้ใช้ที่เข้าสู่ระบบแล้ว ให้ไปที่หน้า Dashboard โดยอัตโนมัติ
-        if (localStorage.getItem('username')) {
-            document.getElementById('login-section').style.display = 'none';
-            document.getElementById('register-section').style.display = 'none';
-            document.getElementById('dashboard-section').style.display = 'block';
-            document.getElementById('welcome-message').textContent = `ยินดีต้อนรับ, ${localStorage.getItem('username')}!`;
-        } else {
-            document.getElementById('login-section').style.display = 'block';
-            document.getElementById('register-section').style.display = 'none';
-            document.getElementById('dashboard-section').style.display = 'none';
+        // ฟังก์ชันสลับระหว่าง Login และ Register
+        function toggleAuth() {
+            var authTitle = document.getElementById("authTitle");
+            var authToggle = document.getElementById("authToggle");
+            var loginForm = document.getElementById("loginForm");
+            var registerForm = document.getElementById("registerForm");
+
+            if (loginForm.style.display === "none") {
+                // เปลี่ยนไปหน้าล็อคอิน
+                authTitle.textContent = "เข้าสู่ระบบ";
+                authToggle.innerHTML = 'ยังไม่มีบัญชี? <a href="javascript:void(0);" onclick="toggleAuth()">สมัครสมาชิก</a>';
+                loginForm.style.display = "block";
+                registerForm.style.display = "none";
+            } else {
+                // เปลี่ยนไปหน้าสมัครสมาชิก
+                authTitle.textContent = "สมัครสมาชิก";
+                authToggle.innerHTML = 'มีบัญชีอยู่แล้ว? <a href="javascript:void(0);" onclick="toggleAuth()">เข้าสู่ระบบ</a>';
+                loginForm.style.display = "none";
+                registerForm.style.display = "block";
+            }
+        }
+
+        // ฟังก์ชันตรวจสอบข้อมูลฟอร์ม Login
+        function loginForm(event) {
+            event.preventDefault();  // ป้องกันการส่งข้อมูลฟอร์ม
+
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            // ตรวจสอบข้อมูลจาก localStorage
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+            let user = users.find(user => user.username === username && user.password === password);
+
+            if (user) {
+                showSuccessMessage();
+            } else {
+                alert("บัญชีผู้ใช้ไม่ถูกต้อง");
+            }
+        }
+
+        // ฟังก์ชันตรวจสอบข้อมูลฟอร์ม Register
+        function registerForm(event) {
+            event.preventDefault();  // ป้องกันการส่งข้อมูลฟอร์ม
+
+            var username = document.getElementById("registerUsername").value;
+            var password = document.getElementById("registerPassword").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+            var email = document.getElementById("registerEmail").value;
+
+            // ตรวจสอบการกรอกรหัสผ่านให้ตรงกัน
+            if (password !== confirmPassword) {
+                alert("รหัสผ่านไม่ตรงกัน");
+                return false;
+            }
+
+            // ตรวจสอบชื่อผู้ใช้
+            if (username.length < 5) {
+                alert("ชื่อผู้ใช้ต้องมีความยาวอย่างน้อย 5 ตัวอักษร");
+                return false;
+            }
+
+            // ตรวจสอบความยาวรหัสผ่าน
+            if (password.length < 6) {
+                alert("รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร");
+                return false;
+            }
+
+            // ตรวจสอบรูปแบบอีเมล
+            if (!email.includes("@gmail.com")) {
+                alert("กรุณากรอกอีเมลที่ถูกต้อง (ต้องเป็น Gmail)");
+                return false;
+            }
+
+            // บันทึกข้อมูลผู้ใช้
+            saveUserData(username, password, email);
+            showSuccessMessage();
+        }
+
+        // แสดงข้อความเมื่อสำเร็จ
+        function showSuccessMessage() {
+            // ซ่อนฟอร์ม Login/Signup
+            document.getElementById("loginForm").style.display = "none";
+            document.getElementById("registerForm").style.display = "none";
+
+            // แสดงข้อความสำเร็จ
+            document.getElementById("successMessage").style.display = "block";
+
+            // หลังจาก 2 วินาที ให้ไปยังหน้า Dashboard
+            setTimeout(function() {
+                // เปลี่ยนเส้นทางไปยังหน้า Dashboard ที่สร้างไว้
+                window.location.href = "dashboard.html"; // ใช้ชื่อไฟล์ของหน้า Dashboard ของคุณ
+            }, 2000);
         }
     </script>
-
 </body>
 </html>

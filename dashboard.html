@@ -3,64 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - R3GENCY Store</title>
+    <title>R3GENCY Store - สินค้า</title>
     <style>
+        /* พื้นฐานการตั้งค่า */
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f7fc;
+            background-color: #f0f2f5;
         }
 
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        .dashboard-content {
-            text-align: center;
-            padding: 50px;
-        }
-
-        .welcome-message {
-            font-size: 24px;
-            color: #5b9bd5;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #5b9bd5;
+        header {
+            background-color: #333;
             color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+            padding: 15px 30px;
+            text-align: center;
         }
 
-        button:hover {
-            background-color: #4a8dc3;
+        header .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .brand-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        header .user-info a {
+            color: #ff6347;
+            text-decoration: none;
+        }
+
+        header .user-info a:hover {
+            text-decoration: underline;
+        }
+
+        .product-container {
+            margin: 20px;
+            padding: 30px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .product-category {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .product-card {
+            width: 30%;
+            background-color: #fff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .product-card h3 {
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .product-card p {
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .product-card .price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ff6347;
+        }
+
+        .product-card button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .product-card button:hover {
+            background-color: #45a049;
+        }
+
+        @media (max-width: 768px) {
+            .product-card {
+                width: 100%;
+            }
+        }
+
+        .login-message {
+            text-align: center;
+            color: #ff6347;
+            font-size: 20px;
+            margin-top: 30px;
         }
     </style>
 </head>
 <body>
+    <header>
+        <div class="header-content">
+            <span class="brand-name">R3GENCY Store</span>
+            <div class="user-info">
+                <span>ยินดีต้อนรับ, <strong id="username">ผู้ใช้</strong></span>
+            </div>
+        </div>
+    </header>
 
-    <div class="dashboard-content">
-        <h1>ยินดีต้อนรับสู่ R3GENCY Store</h1>
-        <p class="welcome-message" id="welcome-message"></p>
-        <button onclick="window.location.href='/logout.html';">ออกจากระบบ</button>
-    </div>
+    <main>
+        <div class="product-container" id="productContainer">
+            <h1>สินค้า</h1>
+            <div class="product-category">
+                <!-- หมวดหมู่ Roblox ID -->
+                <div class="product-card">
+                    <img src="Roblox ID.png" alt="Roblox ID">
+                    <h3>Roblox ID</h3>
+                    <p>Roblox ID พิเศษสำหรับแมพที่คุณชอบ ทำให้การเล่นของคุณสนุกขึ้น!</p>
+                    <p class="price">ราคาเริ่มต้นเพียง: ฿30</p>
+                    <button onclick="viewDetails('Roblox ID')">เพิ่มเติม</button>
+                </div>
+
+                <!-- หมวดหมู่บริการฟาร์มไอเทม -->
+                <div class="product-card">
+                    <img src="FarmItem.png" alt="Item Farming">
+                    <h3>บริการฟาร์ม Item ต่างๆ</h3>
+                    <p>รับ Item ต่างๆ ด้วยบริการฟาร์มที่เชื่อถือได้ของเรา</p>
+                    <p class="price">ราคาเริ่มต้นเพียง: ฿20</p>
+                    <button onclick="viewDetails('บริการฟาร์ม Item')">เพิ่มเติม</button>
+                </div>
+
+                <!-- หมวดหมู่บริการ Race V4 -->
+                <div class="product-card">
+                    <img src="RaceV4.png" alt="Race V4">
+                    <h3>บริการปลดล็อค Race V4: ทุกเผ่า</h3>
+                    <p>ปลดล็อค Race V4: ทุกเผ่า ด้วยบริการของเรา</p>
+                    <p class="price">ราคาเริ่มต้นเพียง: ฿100</p>
+                    <button onclick="viewDetails('Race V4')">เพิ่มเติม</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="loginMessage" class="login-message" style="display: none;">
+            กรุณาเข้าสู่ระบบเพื่อเข้าถึงสินค้า
+        </div>
+    </main>
 
     <script>
-        // ดึงชื่อผู้ใช้จาก localStorage
-        const username = localStorage.getItem('username');
-        if (username) {
-            document.getElementById('welcome-message').textContent = `ยินดีต้อนรับ, ${username}!`;
-        } else {
-            window.location.href = 'login.html'; // ถ้าผู้ใช้ไม่ได้เข้าสู่ระบบ ให้กลับไปหน้าเข้าสู่ระบบ
+        window.onload = function() {
+            var username = localStorage.getItem("username");
+            if (username) {
+                document.getElementById("username").textContent = username;
+                document.getElementById("productContainer").style.display = "block"; // แสดงหน้าสินค้า
+                document.getElementById("loginMessage").style.display = "none"; // ซ่อนข้อความการเข้าสู่ระบบ
+            } else {
+                document.getElementById("productContainer").style.display = "none"; // ซ่อนหน้าสินค้า
+                document.getElementById("loginMessage").style.display = "block"; // แสดงข้อความการเข้าสู่ระบบ
+            }
+        }
+
+        function viewDetails(product) {
+            // ไปที่หน้ารายละเอียดสินค้าและส่งข้อมูลผ่าน URL
+            window.location.href = "product-detail.html?product=" + encodeURIComponent(product);
         }
     </script>
-
 </body>
 </html>
