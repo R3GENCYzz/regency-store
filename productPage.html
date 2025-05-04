@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Fire Services</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #ff5722;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+    }
+    .service-card {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin: 15px;
+      width: 250px;
+      text-align: center;
+      padding: 15px;
+      transition: transform 0.3s ease;
+    }
+    .service-card:hover {
+      transform: scale(1.05);
+    }
+    .service-img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .service-title {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+    .service-price {
+      color: #ff5722;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px;
+      background-color: #ff5722;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #e64a19;
+    }
+    footer {
+      background-color: #ff5722;
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>Welcome to R3GENCY Store</div>
+    <div id="usernameDisplay">Hello, User</div>
+  </header>
+
+  <div class="container">
+    <!-- Example Service Cards -->
+    <div class="service-card">
+      <img src="ตี๋ปากคลอง.jpg" alt="Service 1" class="service-img">
+      <div class="service-title">ตั่งค่า R3GENCYzz</div>
+      <div class="service-price">เริ่มต้น: 100฿</div>
+      <button onclick="addToCart('Diamond Farming', 5)">เลือกดู</button>
+    </div>
+    
+    <div class="service-card">
+      <img src="คอดำ.jpg" alt="Service 2" class="service-img">
+      <div class="service-title">ตั่งค่า ไอคอดำ</div>
+      <div class="service-price">เริ่มต้น: 50฿</div>
+      <button onclick="addToCart('Level Boosting', 10)">เลือกดู</button>
+    </div>
+    
+    <div class="service-card">
+      <img src="wy.jpg" alt="Service 3" class="service-img">
+      <div class="service-title">ตั่งค่าดูดหัวตึงๆ</div>
+      <div class="service-price">เริ่มต้น: 50฿</div>
+      <button onclick="addToCart('Character Unlocking', 8)">เลือกดู</button>
+    </div>
+    
+    <div class="service-card">
+      <img src="หัวหงอก.jpg" alt="Service 4" class="service-img">
+      <div class="service-title">ตั่งค่า ไอตัวหงอก</div>
+      <div class="service-price">เริ่มต้น: 100฿</div>
+      <button onclick="addToCart('Weapon Customization', 12)">เลือกดู</button>
+    </div>
+
+    <div class="service-card">
+        <img src="unnamed.png" alt="Service 4" class="service-img">
+        <div class="service-title">ไอดีเกม</div>
+        <div class="service-price">เริ่มต้น: 100฿</div>
+        <button onclick="addToCart('Weapon Customization', 12)">เลือกดู</button>
+      </div>
+  </div>
+
+  <footer>
+    <div>&copy; 2025 R3GENCY Store</div>
+  </footer>
+
+  <script>
+    // Get the username from localStorage and display it
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      document.getElementById('usernameDisplay').textContent = `Hello, ${user.email}`;
+    } else {
+      document.getElementById('usernameDisplay').textContent = 'Hello, Guest';
+    }
+
+    // Function to add items to cart
+    function addToCart(service, price) {
+      alert(`${service} service has been added to your cart! Price: $${price}`);
+      // You can expand this to actually manage a shopping cart system if needed
+    }
+  </script>
+
+</body>
+</html>

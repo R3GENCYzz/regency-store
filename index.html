@@ -1,236 +1,183 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>R3GENCY Store - ล็อคอิน/สมัครสมาชิก</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f2f5;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>เข้าสู่ระบบ / สมัครสมาชิก</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #74ebd5, #acb6e5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
 
-        .auth-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f2f5;
-        }
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
 
-        .auth-box {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-        }
+    h2 {
+      margin-bottom: 20px;
+    }
 
-        .auth-box h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
 
-        .auth-box input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-        }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
 
-        .auth-box button {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+    button:hover {
+      background-color: #0056b3;
+    }
 
-        .auth-box button:hover {
-            background-color: #45a049;
-        }
+    .toggle {
+      margin-top: 15px;
+      color: #007bff;
+      cursor: pointer;
+    }
 
-        .auth-box .auth-link {
-            display: block;
-            text-align: center;
-            margin-top: 10px;
-        }
+    #popupOverlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
 
-        .auth-box .auth-link a {
-            color: #4CAF50;
-            text-decoration: none;
-        }
+    .popup {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      transform: scale(0.9);
+      opacity: 0;
+      animation: popupFade 0.4s ease forwards;
+    }
 
-        .auth-box .auth-link a:hover {
-            text-decoration: underline;
-        }
+    @keyframes popupFade {
+      from {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
 
-        .success-message {
-            display: none;
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px;
-            text-align: center;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
-
-        .loading {
-            display: none;
-            text-align: center;
-        }
-    </style>
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="auth-container">
-        <div class="auth-box" id="authBox">
-            <h2 id="authTitle">เข้าสู่ระบบ</h2>
 
-            <!-- ฟอร์ม Login -->
-            <form id="loginForm" onsubmit="return loginForm(event)">
-                <input type="text" id="username" name="username" placeholder="ชื่อผู้ใช้" required>
-                <input type="password" id="password" name="password" placeholder="รหัสผ่าน" required>
-                <button type="submit">เข้าสู่ระบบ</button>
-            </form>
+<div class="container">
+  <h2 id="formTitle">เข้าสู่ระบบ</h2>
+  <form id="loginForm">
+    <input type="text" id="usernameInput" placeholder="ชื่อ (เฉพาะตอนสมัคร)" style="display:none;">
+    <input type="email" id="emailInput" placeholder="อีเมล" required>
+    <input type="password" id="passwordInput" placeholder="รหัสผ่าน" required>
+    <button type="submit" id="actionBtn">เข้าสู่ระบบ</button>
+  </form>
+  <div class="toggle" onclick="toggleForm()">ยังไม่มีบัญชี? สมัครสมาชิก</div>
+</div>
 
-            <!-- ฟอร์ม Register -->
-            <form id="registerForm" onsubmit="return registerForm(event)" style="display: none;">
-                <input type="text" id="registerUsername" name="username" placeholder="ชื่อผู้ใช้" required>
-                <input type="password" id="registerPassword" name="password" placeholder="รหัสผ่าน" required>
-                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="ยืนยันรหัสผ่าน" required>
-                <input type="email" id="registerEmail" name="email" placeholder="อีเมล (Gmail)" required>
-                <button type="submit">สมัครสมาชิก</button>
-            </form>
+<!-- Popup Overlay -->
+<div id="popupOverlay">
+  <div class="popup">
+    <h3 id="popupMessage">เข้าสู่ระบบสำเร็จ!</h3>
+    <button onclick="closePopup()">OK</button>
+  </div>
+</div>
 
-            <div class="auth-link">
-                <span id="authToggle">
-                    ยังไม่มีบัญชี? <a href="javascript:void(0);" onclick="toggleAuth()">สมัครสมาชิก</a>
-                </span>
-            </div>
+<script>
+  let isLogin = true;
 
-            <!-- แสดงข้อความเมื่อสำเร็จ -->
-            <div class="success-message" id="successMessage">
-                สมัครสมาชิกหรือเข้าสู่ระบบสำเร็จ! กำลังพาคุณไปที่ R3GENCY Store...
-            </div>
+  function toggleForm() {
+    isLogin = !isLogin;
+    const formTitle = document.getElementById('formTitle');
+    const usernameInput = document.getElementById('usernameInput');
+    const actionBtn = document.getElementById('actionBtn');
+    const toggleText = document.querySelector('.toggle');
 
-            <!-- แสดงข้อความขณะกำลังโหลด -->
-            <div class="loading" id="loadingMessage">
-                กำลังโหลด...
-            </div>
-        </div>
-    </div>
+    if (isLogin) {
+      formTitle.textContent = 'เข้าสู่ระบบ';
+      usernameInput.style.display = 'none';
+      actionBtn.textContent = 'เข้าสู่ระบบ';
+      toggleText.textContent = 'ยังไม่มีบัญชี? สมัครสมาชิก';
+    } else {
+      formTitle.textContent = 'สมัครสมาชิก';
+      usernameInput.style.display = 'block';
+      actionBtn.textContent = 'สมัครสมาชิก';
+      toggleText.textContent = 'มีบัญชีอยู่แล้ว? เข้าสู่ระบบ';
+    }
+  }
 
-    <script>
-        // เก็บข้อมูลผู้ใช้ที่สมัครไว้ใน localStorage
-        function saveUserData(username, password, email) {
-            let users = JSON.parse(localStorage.getItem("users")) || [];
-            users.push({ username, password, email });
-            localStorage.setItem("users", JSON.stringify(users));
-        }
+  document.getElementById('loginForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const email = document.getElementById('emailInput').value;
+    const password = document.getElementById('passwordInput').value;
+    const username = document.getElementById('usernameInput').value;
 
-        // ฟังก์ชันสลับระหว่าง Login และ Register
-        function toggleAuth() {
-            var authTitle = document.getElementById("authTitle");
-            var authToggle = document.getElementById("authToggle");
-            var loginForm = document.getElementById("loginForm");
-            var registerForm = document.getElementById("registerForm");
+    if (isLogin) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user && user.email === email && user.password === password) {
+        document.getElementById('popupMessage').textContent = `ยินดีต้อนรับ ${user.username || 'ผู้ใช้'}`;
+        document.getElementById('popupOverlay').style.display = 'flex';
+      } else {
+        alert('อีเมลหรือรหัสผ่านไม่ถูกต้อง');
+      }
+    } else {
+      if (!username) {
+        alert('กรุณากรอกชื่อผู้ใช้');
+        return;
+      }
+      const newUser = { email, password, username };
+      localStorage.setItem('user', JSON.stringify(newUser));
+      alert('สมัครสมาชิกสำเร็จ! กรุณาเข้าสู่ระบบ');
+      toggleForm();
+    }
+  });
 
-            if (loginForm.style.display === "none") {
-                // เปลี่ยนไปหน้าล็อคอิน
-                authTitle.textContent = "เข้าสู่ระบบ";
-                authToggle.innerHTML = 'ยังไม่มีบัญชี? <a href="javascript:void(0);" onclick="toggleAuth()">สมัครสมาชิก</a>';
-                loginForm.style.display = "block";
-                registerForm.style.display = "none";
-            } else {
-                // เปลี่ยนไปหน้าสมัครสมาชิก
-                authTitle.textContent = "สมัครสมาชิก";
-                authToggle.innerHTML = 'มีบัญชีอยู่แล้ว? <a href="javascript:void(0);" onclick="toggleAuth()">เข้าสู่ระบบ</a>';
-                loginForm.style.display = "none";
-                registerForm.style.display = "block";
-            }
-        }
+  function closePopup() {
+    document.getElementById('popupOverlay').style.display = 'none';
+    window.location.href = 'productPage.html'; // ✅ ไปหน้าสินค้า
+  }
+</script>
 
-        // ฟังก์ชันตรวจสอบข้อมูลฟอร์ม Login
-        function loginForm(event) {
-            event.preventDefault();  // ป้องกันการส่งข้อมูลฟอร์ม
-
-            var username = document.getElementById("username").value;
-            var password = document.getElementById("password").value;
-
-            // ตรวจสอบข้อมูลจาก localStorage
-            let users = JSON.parse(localStorage.getItem("users")) || [];
-            let user = users.find(user => user.username === username && user.password === password);
-
-            if (user) {
-                showSuccessMessage();
-            } else {
-                alert("บัญชีผู้ใช้ไม่ถูกต้อง");
-            }
-        }
-
-        // ฟังก์ชันตรวจสอบข้อมูลฟอร์ม Register
-        function registerForm(event) {
-            event.preventDefault();  // ป้องกันการส่งข้อมูลฟอร์ม
-
-            var username = document.getElementById("registerUsername").value;
-            var password = document.getElementById("registerPassword").value;
-            var confirmPassword = document.getElementById("confirmPassword").value;
-            var email = document.getElementById("registerEmail").value;
-
-            // ตรวจสอบการกรอกรหัสผ่านให้ตรงกัน
-            if (password !== confirmPassword) {
-                alert("รหัสผ่านไม่ตรงกัน");
-                return false;
-            }
-
-            // ตรวจสอบชื่อผู้ใช้
-            if (username.length < 5) {
-                alert("ชื่อผู้ใช้ต้องมีความยาวอย่างน้อย 5 ตัวอักษร");
-                return false;
-            }
-
-            // ตรวจสอบความยาวรหัสผ่าน
-            if (password.length < 6) {
-                alert("รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร");
-                return false;
-            }
-
-            // ตรวจสอบรูปแบบอีเมล
-            if (!email.includes("@gmail.com")) {
-                alert("กรุณากรอกอีเมลที่ถูกต้อง (ต้องเป็น Gmail)");
-                return false;
-            }
-
-            // บันทึกข้อมูลผู้ใช้
-            saveUserData(username, password, email);
-            showSuccessMessage();
-        }
-
-        // แสดงข้อความเมื่อสำเร็จ
-        function showSuccessMessage() {
-            // ซ่อนฟอร์ม Login/Signup
-            document.getElementById("loginForm").style.display = "none";
-            document.getElementById("registerForm").style.display = "none";
-
-            // แสดงข้อความสำเร็จ
-            document.getElementById("successMessage").style.display = "block";
-
-            // หลังจาก 2 วินาที ให้ไปยังหน้า Dashboard
-            setTimeout(function() {
-                // เปลี่ยนเส้นทางไปยังหน้า Dashboard ที่สร้างไว้
-                window.location.href = "dashboard.html"; // ใช้ชื่อไฟล์ของหน้า Dashboard ของคุณ
-            }, 2000);
-        }
-    </script>
 </body>
 </html>
